@@ -22,7 +22,10 @@ def upload():
         # content = context + "\n\n" + team_name + "\t" + checker[1]
         # open(filename, "w+").write(content)
         filename = tempfile.mktemp(".txt")
-        open(filename, "w").write(context + "\n\n" + team_name + "\t" + checker[1])
+        open(filename, "w").write("TEAM_NAME :  " + team_name + "\n" +
+                                  context + "\n" +
+                                  "TEAM_NAME :  " + team_name + "\n" +
+                                  "LOCATION :  " + checker[1])
         win32api.ShellExecute(
             0,
             "printto",
