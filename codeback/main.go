@@ -11,4 +11,6 @@ func main() {
 
 	routes.RouteInit(app)
 
+	app.Listen(":8081")
+
 }
