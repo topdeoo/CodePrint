@@ -1,23 +1,2 @@
-[http]
-port = 8081
-
-[redis]
-host = "localhost"
-port = 6379
-password = ""
-db = 0
-pool = 10
-maxIdle = 3
-idleTimeout = 240
-readTimeout = 15
-writeTimeout = 15
-connectTimeout = 15 
-normalTasksPollPeriod = 1000
-delayedTasksPollPeriod = 500
-
-[machinery]
-queue = "machinery_queue"
-expired = 3600
-
-[printer]
-name = ["HP1106P", "HP11101"]
+[mode]
+mode = "dev"

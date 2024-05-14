@@ -13,6 +13,7 @@ type Config struct {
 }
 
 type HttpConfig struct {
+	Host string
 	Port string
 }
 
@@ -78,7 +79,10 @@ func ConfigInit() *Config {
 		panic(err)
 	}
 
-	http := &HttpConfig{Port: viper.GetString("http.port")}
+	http := &HttpConfig{
+		Host: viper.GetString("http.host"),
+		Port: viper.GetString("http.port"),
+	}
 
 	redisConfig := &RedisConfig{
 		Host:                   viper.GetString("redis.host"),
