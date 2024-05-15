@@ -14,10 +14,11 @@ func main() {
 
 	app := fiber.New()
 
-	jwt := middleware.Init()
+	middleware.CrosInit(app)
 
-	routes.RouteInit(app, &jwt)
+	routes.RouteInit(app)
 
+	middleware.AuthInit(app)
 	go tasks.Start()
 
 	app.Listen(global.MyConfig.GetHttpConfig().Host + ":" + global.MyConfig.GetHttpConfig().Port)

@@ -50,7 +50,12 @@ func startWorker(tags []string) error {
 
 		errorhandler := func(err error) {}
 		pretaskhandler := func(signature *tasks.Signature) {
-			signature.Args = append(signature.Args, tasks.Arg{Name: "printer", Type: "string", Value: client.ConsumerTag})
+			for _, args := range signature.Args {
+				if args.Name == "printer" {
+					args.Value = client.ConsumerTag
+					break
+				}
+			}
 		}
 		posttaskhandler := func(signature *tasks.Signature) {}
 

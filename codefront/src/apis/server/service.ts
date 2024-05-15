@@ -1,6 +1,7 @@
 // 封装axios
 import axios from 'axios';
-const baseUrl = 'localhost:8081';
+
+const baseUrl = 'http://localhost:8081/api/v1/client';
 // 创建axios实例
 const service = axios.create({
     baseURL: baseUrl, // api的base_url

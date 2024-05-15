@@ -24,7 +24,7 @@ const submitPrint = () => {
   };
   codePrint(data).then((res: any) => {
     console.log(res);
-    if (res.data.message !== 'Success') {
+    if (res.message !== 'Success') {
       ElMessage({
         type: 'error',
         message: '发送打印失败'

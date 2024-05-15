@@ -44,10 +44,10 @@ const submitLogin = (formEl: FormInstance | undefined) => {
       teamLogin(form.value)
         .then((res: any) => {
           console.log(res);
-          if (res.data.message !== 'Success') {
+          if (res.message !== 'Success') {
             ElMessage({
               type: 'error',
-              message: res.data.message
+              message: res.message
             });
           }
           else {
@@ -56,7 +56,7 @@ const submitLogin = (formEl: FormInstance | undefined) => {
               message: '登录成功'
             });
             // 存token
-            const token = res.data.token;
+            const token = res.token;
             useTeamInfoStore().setTeamInfo(form.value.teamname, form.value.location, token)
             // 跳转
             router.push({ path: '/print' });
@@ -97,7 +97,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
         <el-input v-model="form.teamname" placeholder="Teamname"></el-input>
       </el-form-item>
       <el-form-item prop="password" label="密码">
-        <el-input v-model="form.password" placeholder="Password"></el-input>
+        <el-input v-model="form.password" type="password" placeholder="Password"></el-input>
       </el-form-item>
       <el-form-item prop="location" label="位置号">
         <el-input v-model="form.location" placeholder="Location"></el-input>

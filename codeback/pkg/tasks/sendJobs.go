@@ -15,11 +15,11 @@ func PrintCode(filename string) {
 				Type:  "string",
 				Value: filename,
 			},
-			// {
-			// 	Name:  "printer",
-			// 	Type:  "string",
-			// 	Value: "Print",
-			// },
+			{
+				Name:  "printer",
+				Type:  "string",
+				Value: "Print",
+			},
 		},
 	}
 

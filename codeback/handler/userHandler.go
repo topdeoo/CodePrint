@@ -8,7 +8,7 @@ import (
 	"acm.nenu.edu.cn/xcpc/model"
 	"acm.nenu.edu.cn/xcpc/pkg/tasks"
 	"github.com/gofiber/fiber/v2"
-	jwttoken "github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 func LoginHandler(ctx *fiber.Ctx) error {
@@ -28,18 +28,18 @@ func LoginHandler(ctx *fiber.Ctx) error {
 		})
 	}
 
-	hour := time.Hour
+	hour := time.Hour * 5
 	ipAddr := ctx.IP()
 
-	claims := jwttoken.MapClaims{
-		"TeamName": user.TeamName,
-		"Password": user.Password,
-		"Location": user.Location,
-		"IPAddr":   ipAddr,
-		"Exp":      time.Now().Add(hour).Unix(),
+	claims := jwt.MapClaims{
+		"teamName": user.TeamName,
+		"password": user.Password,
+		"location": user.Location,
+		"ipaddr":   ipAddr,
+		"exp":      time.Now().Add(hour).Unix(),
 	}
 
-	token := jwttoken.NewWithClaims(jwttoken.SigningMethodHS256, claims)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	t, err := token.SignedString([]byte(global.SecretKey))
 
 	if err != nil {
@@ -55,15 +55,21 @@ func LoginHandler(ctx *fiber.Ctx) error {
 }
 
 func PrintHandler(ctx *fiber.Ctx) error {
-	user := ctx.Locals("user").(*jwttoken.Token)
-	claims := user.Claims.(jwttoken.MapClaims)
-	err := claims.Valid()
+	tokenString := ctx.Get("Authorization")
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return []byte(global.SecretKey), nil
+	})
+
 	if err != nil {
-		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"message": err.Error(),
-		})
+		return ctx.SendStatus(fiber.StatusUnauthorized)
 	}
-	IPAddr := claims["IPAddr"].(string)
+
+	if !token.Valid {
+		return ctx.SendStatus(fiber.StatusUnauthorized)
+	}
+
+	claims := token.Claims.(jwt.MapClaims)
+	IPAddr := claims["ipaddr"].(string)
 	if IPAddr != ctx.IP() {
 		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"message": "Unauthorized",
@@ -77,9 +83,9 @@ func PrintHandler(ctx *fiber.Ctx) error {
 		})
 	}
 
-	Teamname := claims["TeamName"].(string)
-	Password := claims["Password"].(string)
-	Location := claims["Location"].(string)
+	Teamname := claims["teamName"].(string)
+	Password := claims["password"].(string)
+	Location := claims["location"].(string)
 
 	filename := global.MyConfig.CodePath + "/teamname-" + Teamname + "-password-" +
 		Password + "-location-" + Location + time.Now().Format("20060102150405") + ".code"

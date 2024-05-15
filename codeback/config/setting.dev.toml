@@ -21,7 +21,7 @@ queue = "machinery_queue"
 expired = 3600
 
 [printer]
-name = ["HP1106P", "HP11101"]
+name = ["HP_1106P", "HP_1107P"]
 
 
 [secret]
