@@ -1,8 +1,7 @@
 package middleware
 
 import (
-	"github.com/topdeoo/codeprint/back/global"
-
+	"acm.nenu.edu.cn/xcpc/global"
 	"github.com/gofiber/fiber/v2"
 	jwtware "github.com/gofiber/jwt/v3"
 )

@@ -1,4 +1,4 @@
-module github.com/topdeoo/codeprint/back
+module acm.nenu.edu.cn/xcpc
 
 go 1.22.0
 

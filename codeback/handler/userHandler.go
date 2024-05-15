@@ -4,11 +4,11 @@ import (
 	"os"
 	"time"
 
+	"acm.nenu.edu.cn/xcpc/global"
+	"acm.nenu.edu.cn/xcpc/model"
+	"acm.nenu.edu.cn/xcpc/pkg/tasks"
 	"github.com/gofiber/fiber/v2"
 	jwttoken "github.com/golang-jwt/jwt/v4"
-	"github.com/topdeoo/codeprint/back/global"
-	"github.com/topdeoo/codeprint/back/model"
-	"github.com/topdeoo/codeprint/back/pkg/tasks"
 )
 
 func LoginHandler(ctx *fiber.Ctx) error {

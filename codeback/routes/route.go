@@ -1,8 +1,8 @@
 package routes
 
 import (
+	"acm.nenu.edu.cn/xcpc/handler"
 	"github.com/gofiber/fiber/v2"
-	"github.com/topdeoo/codeprint/back/handler"
 )
 
 func RouteInit(app *fiber.App, jwt *fiber.Handler) {

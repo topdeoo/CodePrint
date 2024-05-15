@@ -4,8 +4,8 @@ import (
 	"encoding/csv"
 	"os"
 
-	"github.com/topdeoo/codeprint/back/config"
-	"github.com/topdeoo/codeprint/back/model"
+	"acm.nenu.edu.cn/xcpc/config"
+	"acm.nenu.edu.cn/xcpc/model"
 )
 
 var MyConfig *config.Config
@@ -23,19 +23,25 @@ func Init() {
 }
 
 func initDatabase() {
-	file, err := os.Open("data/example.csv")
+	file, err := os.Open("db/example.csv")
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
 	reader := csv.NewReader(file)
+	reader.Comma = '\t'
 	records, err := reader.ReadAll()
 
 	if err != nil {
 		panic(err)
 	}
 
-	for _, record := range records {
+	Database = make(map[string]model.User)
+
+	for idx, record := range records {
+		if idx == 0 {
+			continue
+		}
 		Database[record[0]] = model.User{TeamName: record[0], Password: record[1], Location: record[2]}
 	}
 }

@@ -1,16 +1,14 @@
 package main
 
 import (
+	"acm.nenu.edu.cn/xcpc/global"
+	"acm.nenu.edu.cn/xcpc/middleware"
+	"acm.nenu.edu.cn/xcpc/pkg/tasks"
+	"acm.nenu.edu.cn/xcpc/routes"
 	"github.com/gofiber/fiber/v2"
-	"github.com/topdeoo/codeprint/back/global"
-	"github.com/topdeoo/codeprint/back/middleware"
-	"github.com/topdeoo/codeprint/back/pkg/tasks"
-	"github.com/topdeoo/codeprint/back/routes"
 )
 
 func main() {
-
-	go tasks.Start()
 
 	global.Init()
 
@@ -19,6 +17,8 @@ func main() {
 	jwt := middleware.Init()
 
 	routes.RouteInit(app, &jwt)
+
+	go tasks.Start()
 
 	app.Listen(global.MyConfig.GetHttpConfig().Host + ":" + global.MyConfig.GetHttpConfig().Port)
 

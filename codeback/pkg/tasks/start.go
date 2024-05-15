@@ -1,6 +1,6 @@
 package tasks
 
-import "github.com/topdeoo/codeprint/back/global"
+import "acm.nenu.edu.cn/xcpc/global"
 
 func Start() {
 

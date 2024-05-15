@@ -1,15 +1,14 @@
 package tasks
 
 import (
+	"acm.nenu.edu.cn/xcpc/global"
+	"acm.nenu.edu.cn/xcpc/pkg/tasks/client"
 	"github.com/RichardKnop/machinery/v2"
 	redisbackend "github.com/RichardKnop/machinery/v2/backends/redis"
 	redisbroker "github.com/RichardKnop/machinery/v2/brokers/redis"
 	"github.com/RichardKnop/machinery/v2/tasks"
 
 	eagerlock "github.com/RichardKnop/machinery/v2/locks/eager"
-
-	"github.com/topdeoo/codeprint/back/global"
-	"github.com/topdeoo/codeprint/back/pkg/tasks/client"
 )
 
 var AsyncTaskCenter *machinery.Server
