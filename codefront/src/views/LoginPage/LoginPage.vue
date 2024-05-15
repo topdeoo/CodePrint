@@ -86,7 +86,11 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
+  <!-- <div class="bg"></div> -->
   <div class="shell">
+  <div class="title">
+    <img src="../../assets/bg.png" alt="">
+  </div>
     <el-form ref="ruleFormRef" :model="form" label-position="top" :rules="rule" class="form-style">
       <h3 class="form-title">队伍登录</h3>
       <el-form-item prop="teamname" label="队伍名称">
@@ -108,11 +112,25 @@ const resetForm = (formEl: FormInstance | undefined) => {
   </div>
 </template>
 <style scoped>
+img{
+  width: 80%;
+  height: 90%;
+  object-fit: cover;
+}
+.title{
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+}
 .shell {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  position: absolute;
+  width: 100%;
+  background-color: #FBF9FC;
 }
 
 .form-style {
@@ -121,6 +139,8 @@ const resetForm = (formEl: FormInstance | undefined) => {
   box-shadow: rgba(0, 0, 0, 0.12) 2px 2px 14px 0px;
   height: fit-content;
   padding: 20px;
+  background-color: #ffffff;
+
 }
 
 .form-title {

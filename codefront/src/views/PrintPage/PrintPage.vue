@@ -84,6 +84,7 @@ const zIndex = -999;
   align-items: center;
   height: 100vh;
   padding-top: 60px;
+  background-color: #FBF9FC;
 }
 
 .input-shell {
