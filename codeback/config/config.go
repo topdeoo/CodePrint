@@ -10,6 +10,8 @@ type Config struct {
 	redis     RedisConfig
 	machinery machineryConfig.Config
 	printer   PrinterConfig
+	SecretKey string
+	CodePath  string
 }
 
 type HttpConfig struct {
@@ -120,5 +122,7 @@ func ConfigInit() *Config {
 		redis:     *redisConfig,
 		machinery: *machineryConfig,
 		printer:   *printerConfig,
+		SecretKey: viper.GetString("secret.key"),
+		CodePath:  viper.GetString("code.path"),
 	}
 }

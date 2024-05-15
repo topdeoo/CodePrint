@@ -11,9 +11,15 @@ func PrintCode(filename string) {
 		Name: "Print",
 		Args: []tasks.Arg{
 			{
+				Name:  "filename",
 				Type:  "string",
 				Value: filename,
 			},
+			// {
+			// 	Name:  "printer",
+			// 	Type:  "string",
+			// 	Value: "Print",
+			// },
 		},
 	}
 

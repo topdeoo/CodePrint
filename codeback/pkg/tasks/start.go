@@ -6,9 +6,8 @@ func Start() {
 
 	printerConfig := global.MyConfig.GetPrinterConfig()
 
-	for _, printer := range printerConfig.PrinterName {
-		if err := startWorker(printer); err != nil {
-			panic(err)
-		}
+	if err := startWorker(printerConfig.PrinterName); err != nil {
+		panic(err)
 	}
+
 }

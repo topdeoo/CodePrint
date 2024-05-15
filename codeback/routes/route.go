@@ -5,8 +5,8 @@ import (
 	"github.com/topdeoo/codeprint/back/handler"
 )
 
-func RouteInit(app *fiber.App) {
+func RouteInit(app *fiber.App, jwt *fiber.Handler) {
 	g := app.Group("/api/v1/client")
 	g.Post("/login", handler.LoginHandler)
-	g.Post("/print", handler.PrintHandler)
+	g.Post("/print", *jwt, handler.PrintHandler)
 }

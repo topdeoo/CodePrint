@@ -40,19 +40,29 @@ func initAsyncTaskMap() map[string]interface{} {
 	return tasksMap
 }
 
-func startWorker(tag string) error {
+func startWorker(tags []string) error {
 	server, err := startServer()
 	if err != nil {
 		return err
 	}
-	client := server.NewWorker(tag, 0)
 
-	errorhandler := func(err error) {}
-	pretaskhandler := func(signature *tasks.Signature) {}
-	posttaskhandler := func(signature *tasks.Signature) {}
+	for _, tag := range tags {
+		client := server.NewWorker(tag, 0)
 
-	client.SetPostTaskHandler(posttaskhandler)
-	client.SetErrorHandler(errorhandler)
-	client.SetPreTaskHandler(pretaskhandler)
-	return client.Launch()
+		errorhandler := func(err error) {}
+		pretaskhandler := func(signature *tasks.Signature) {
+			signature.Args = append(signature.Args, tasks.Arg{Name: "printer", Type: "string", Value: client.ConsumerTag})
+		}
+		posttaskhandler := func(signature *tasks.Signature) {}
+
+		client.SetPostTaskHandler(posttaskhandler)
+		client.SetErrorHandler(errorhandler)
+		client.SetPreTaskHandler(pretaskhandler)
+
+		err := client.Launch()
+		if err != nil {
+			return err
+		}
+	}
+	return err
 }
