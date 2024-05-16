@@ -3,10 +3,16 @@ package global
 import (
 	"encoding/csv"
 	"os"
+	"sync"
 
 	"acm.nenu.edu.cn/xcpc/config"
 	"acm.nenu.edu.cn/xcpc/model"
 )
+
+type Counter struct {
+	Index    uint64
+	Spinlock sync.Mutex
+}
 
 var MyConfig *config.Config
 
@@ -14,12 +20,25 @@ var SecretKey string
 
 var Database map[string]model.User
 
+var counter *Counter
+
 func Init() {
 	MyConfig = config.ConfigInit()
 
 	SecretKey = MyConfig.SecretKey
 
+	counter = &Counter{Index: 0, Spinlock: sync.Mutex{}}
+
 	initDatabase()
+}
+
+func GetNextPrinter() string {
+	counter.Spinlock.Lock()
+	defer counter.Spinlock.Unlock()
+	printer := MyConfig.GetPrinterConfig()
+	result := printer.PrinterName[counter.Index]
+	counter.Index = (counter.Index + 1) % uint64(len(printer.PrinterName))
+	return result
 }
 
 func initDatabase() {
