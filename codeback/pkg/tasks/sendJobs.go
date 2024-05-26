@@ -7,15 +7,15 @@ import (
 	"github.com/RichardKnop/machinery/v2/tasks"
 )
 
-func PrintCode(filename string) {
+func PrintCode(rawFile string) {
 	printer := global.GetNextPrinter()
 	signature := &tasks.Signature{
 		Name: "Print",
 		Args: []tasks.Arg{
 			{
-				Name:  "filename",
+				Name:  "rawFile",
 				Type:  "string",
-				Value: filename,
+				Value: rawFile,
 			},
 			{
 				Name:  "printer",

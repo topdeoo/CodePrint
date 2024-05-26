@@ -54,6 +54,21 @@ func LoginHandler(ctx *fiber.Ctx) error {
 	})
 }
 
+func MockLoginHandler(ctx *fiber.Ctx) error {
+	tokenString := ctx.Get("Authorization")
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return []byte(global.SecretKey), nil
+	})
+
+	if err != nil {
+		return ctx.SendStatus(fiber.StatusUnauthorized)
+	}
+	if !token.Valid {
+		return ctx.SendStatus(fiber.StatusUnauthorized)
+	}
+	return ctx.SendStatus(fiber.StatusOK)
+}
+
 func PrintHandler(ctx *fiber.Ctx) error {
 	tokenString := ctx.Get("Authorization")
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -70,7 +85,15 @@ func PrintHandler(ctx *fiber.Ctx) error {
 
 	claims := token.Claims.(jwt.MapClaims)
 	IPAddr := claims["ipaddr"].(string)
+	Password := claims["password"].(string)
+
 	if IPAddr != ctx.IP() {
+		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "Unauthorized",
+		})
+	}
+
+	if Password != global.Database[claims["teamName"].(string)].Password {
 		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"message": "Unauthorized",
 		})
@@ -84,19 +107,18 @@ func PrintHandler(ctx *fiber.Ctx) error {
 	}
 
 	Teamname := claims["teamName"].(string)
-	Password := claims["password"].(string)
 	Location := claims["location"].(string)
 
-	filename := global.MyConfig.CodePath + "/teamname-" + Teamname + "-password-" +
-		Password + "-location-" + Location + time.Now().Format("20060102150405") + ".code"
+	filename := global.MyConfig.CodePath + "/teamname--" + Teamname + "--location--" + Location + "-time-" + time.Now().Format("20060102150405") + ".code"
+
+	endline := "---------------------------------------END-------------------------------------------"
+
+	rawFile := filename + "\n\n" + rawcode.Code + "\n\n" + endline
+	go tasks.PrintCode(rawFile)
 
 	f, _ := os.OpenFile(filename, os.O_CREATE|os.O_RDWR, 0644)
-	f.WriteString(filename + "\n\n")
-	f.WriteString(rawcode.Code + "\n\n")
-	f.WriteString("---------------------------------------END-------------------------------------------")
+	f.WriteString(rawFile)
 	f.Close()
-
-	go tasks.PrintCode(filename)
 
 	return ctx.JSON(fiber.Map{
 		"message": "Success",
