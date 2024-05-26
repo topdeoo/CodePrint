@@ -42,7 +42,7 @@ func GetNextPrinter() string {
 }
 
 func initDatabase() {
-	file, err := os.Open("db/example.csv")
+	file, err := os.Open("db/accounts.csv")
 	if err != nil {
 		panic(err)
 	}
