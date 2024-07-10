@@ -1,5 +1,5 @@
 {
-  "name": "acm-printer",
+  "name": "code-printer",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,19 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "@highlightjs/vue-plugin": "^2.1.0",
     "@material/web": "^1.4.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "ace-builds": "^1.33.2",
     "axios": "^1.6.8",
     "element-plus": "^2.7.2",
-    "highlight.js": "^11.9.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "rollup": "^4.17.2",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.2",
-    "vue3-ace-editor": "^2.2.4"
+    "vue-router": "^4.3.2"
   },
   "devDependencies": {
     "@types/node": "^20.12.11",

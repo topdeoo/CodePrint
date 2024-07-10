@@ -32,6 +32,6 @@ export const Session = {
   },
   // 清空临时缓存
   clear() {
-      window.sessionStorage.clear()
+      window.sessionStorage.clear();
   },
 };

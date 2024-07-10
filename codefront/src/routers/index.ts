@@ -47,6 +47,11 @@ router.beforeEach((to, from, next) => {
       next({ name: 'LoginPage'});
     }
   }
+  else if (from.path === '/print' &&(to.path === '/login' || to.path === '/')) {
+    // 从打印页面返回时，清空缓存
+    window.localStorage.clear();
+    next();
+  }
   else {
     next();
   }

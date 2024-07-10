@@ -68,6 +68,13 @@ const submitLogin = (formEl: FormInstance | undefined) => {
             message: '登录失败'
           });
         });
+
+      // // 测试
+      // // 存token
+      // const token = 'testtoken';
+      // useTeamInfoStore().setTeamInfo(form.value.teamname, form.value.location, token)
+      // // 跳转
+      // router.push({ path: '/print' });
     } else {
       console.log('error submit!!', fields)
       ElMessage({
@@ -86,11 +93,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <!-- <div class="bg"></div> -->
   <div class="shell">
-  <div class="title">
-    <img src="../../assets/bg.png" alt="">
-  </div>
+    <div class="title">
+      <img src="../../assets/bg.png" alt="">
+    </div>
     <el-form ref="ruleFormRef" :model="form" label-position="top" :rules="rule" class="form-style">
       <h3 class="form-title">队伍登录</h3>
       <el-form-item prop="teamname" label="队伍名称">
@@ -112,16 +118,18 @@ const resetForm = (formEl: FormInstance | undefined) => {
   </div>
 </template>
 <style scoped>
-img{
+img {
   width: 80%;
   height: 90%;
   object-fit: cover;
 }
-.title{
+
+.title {
   justify-content: space-around;
   align-items: center;
   display: flex;
 }
+
 .shell {
   display: flex;
   flex-direction: column;

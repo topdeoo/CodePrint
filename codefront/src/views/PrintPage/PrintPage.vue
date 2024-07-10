@@ -52,14 +52,13 @@ const font = reactive({
   color: 'rgba(0, 0, 0, .15)',
   fontFamily: 'Arial',
   textAlign: 'center',
-})
+});
 
-const zIndex = -999;
 
 </script>
 
 <template>
-  <el-watermark content="打印服务" :zIndex="zIndex" :font="font">
+  <el-watermark content="打印服务" :font="font">
     <HeaderNav />
     <div class="shell">
       <div class="input-shell">
@@ -70,7 +69,6 @@ const zIndex = -999;
           <el-button @click="submitPrint" large round type="primary">打印</el-button>
           <el-button @click="resetPrint" type="default" large round>清空</el-button>
         </div>
-
       </div>
     </div>
   </el-watermark>
@@ -82,25 +80,27 @@ const zIndex = -999;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
   padding-top: 60px;
   background-color: #FBF9FC;
 }
 
 .input-shell {
   width: 70%;
+  z-index: 999;
 }
 
 .input-area {
   margin: 20px 0;
   font-size: 18px;
-  /* opacity: 0; */
 }
 
 .btn-shell {
   display: flex;
   width: 100%;
   justify-content: space-around;
+  margin-bottom: 20px;
 }
 
 .btn-shell button {

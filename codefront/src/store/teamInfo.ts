@@ -23,6 +23,12 @@ export const useTeamInfoStore = defineStore('teamInfo', {
         location: this.location,
         token: this.token,
       };
+    },
+    clearTeamInfo() {
+      this.teamname = '';
+      this.token = '';
+      this.location = '';
+      Session.clear();
     }
   },
 });
