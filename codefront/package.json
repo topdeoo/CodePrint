@@ -9,9 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@codemirror/lang-cpp": "^6.0.2",
-    "@codemirror/lang-java": "^6.0.1",
-    "@codemirror/lang-python": "^6.1.6",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
@@ -23,9 +20,7 @@
     "element-plus": "^2.7.2",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
-    "thememirror": "^2.0.1",
     "vue": "^3.4.21",
-    "vue-codemirror": "^6.1.1",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
