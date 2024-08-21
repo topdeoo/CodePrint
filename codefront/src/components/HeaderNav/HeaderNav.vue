@@ -34,22 +34,38 @@ const logout = () => {
     <div class="items">
       <div class="item left">
         <div class="title">
-          <font-awesome-icon :icon="['fas', 'print']" size="xl" />
-          XCPC-打印服务
+          <span class="label">
+            <font-awesome-icon :icon="['fas', 'print']" size="xl" />
+            XCPC-打印服务
+          </span>
+        </div>
+      </div>
+      <div class="item middle">
+        <div class="teamname">
+          <span class="label">
+            <font-awesome-icon :icon="['fas', 'people-group']" size="lg" />
+            队伍名：
+          </span>
+          <span>
+            {{ teamInfo.teamname }}
+          </span>
         </div>
       </div>
       <div class="item right">
         <div class="location">
-          <font-awesome-icon :icon="['fas', 'location-crosshairs']" size="lg" />
-          位置：{{ teamInfo.location }}
-        </div>
-        <div class="teamname">
-          <font-awesome-icon :icon="['fas', 'people-group']" size="lg" />
-          队伍名：{{ teamInfo.teamname }}
+          <span class="label">
+            <font-awesome-icon :icon="['fas', 'location-crosshairs']" size="lg" />
+            位置：
+          </span>
+          <span>
+            {{ teamInfo.location }}
+          </span>
         </div>
         <div class="logout" :onclick="logout">
-          <font-awesome-icon :icon="['fas', 'right-from-bracket']" size="lg" />
-          重新登陆
+          <span class="label">
+            <font-awesome-icon :icon="['fas', 'right-from-bracket']" size="lg" />
+            重新登陆
+          </span>
         </div>
       </div>
     </div>
@@ -64,7 +80,7 @@ const logout = () => {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 20px;
+  padding: 16px 0px;
   background-color: #17a1e0;
 }
 
@@ -76,6 +92,14 @@ const logout = () => {
   justify-content: space-between;
   width: 100%;
   color: white;
+
+}
+
+.label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 120px;
 }
 
 .item {
@@ -84,23 +108,37 @@ const logout = () => {
   flex-direction: row;
   justify-content: space-around;
   padding: 0 20px;
+
+  div {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
 }
 
 .left {
   text-align: left;
   justify-content: flex-start;
   cursor: default;
-  div{
+  flex:2;
+
+  div {
     padding: 0 20px;
     min-width: 200px;
     width: fit-content;
   }
 }
 
+.middle {
+  flex:7;
+}
+
 .right {
   text-align: right;
   justify-content: flex-end;
-  div{
+  flex:2;
+
+  div {
     padding: 0 20px;
   }
 }
@@ -122,6 +160,7 @@ const logout = () => {
   min-width: 100px;
   line-height: 1;
 }
+
 .logout:hover {
   color: #9cdb9a;
 }

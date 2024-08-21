@@ -4,9 +4,26 @@ import { ElMessage } from 'element-plus';
 import HeaderNav from '@/components/HeaderNav/HeaderNav.vue';
 import { codePrint } from '@/apis/apis';
 
-const printContent = ref<string>('');
-const inputRef = ref<null | HTMLInputElement>(null);
+import Codemirror from "codemirror-editor-vue3";
+import "codemirror/mode/clike/clike.js";
+import "codemirror/mode/python/python.js";
+import type { Editor, EditorConfiguration } from "codemirror"
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/lib/codemirror.js';
 
+const printContent = ref<string>('');
+const inputRef = ref();
+
+const cmOptions:EditorConfiguration = {
+  mode: 'text/x-c++src',
+  lineNumbers: true,
+  tabSize: 4,
+  indentUnit: 4,
+}
+
+const onReady = (cm: Editor) => {
+  cm.focus();
+}
 
 const submitPrint = () => {
   // 发送打印
@@ -22,6 +39,7 @@ const submitPrint = () => {
   const data = {
     code: printContent.value
   };
+  
   codePrint(data).then((res: any) => {
     console.log(res);
     if (res.message !== 'Success') {
@@ -33,9 +51,15 @@ const submitPrint = () => {
     else {
       ElMessage({
         type: 'success',
-        message: '发送打印成功'
+        message: '发送打印成功, 请等待打印!'
       });
     };
+  }).catch((err: any) => {
+    console.log(err);
+    ElMessage({
+      type: 'error',
+      message: '发送打印失败, 请检查网络连接!'
+    });
   });
 };
 
@@ -62,8 +86,17 @@ const font = reactive({
     <HeaderNav />
     <div class="shell">
       <div class="input-shell">
-        <el-input id="code" ref="inputRef" type='textarea' v-model="printContent" placeholder="请输入打印内容"
-          :autosize="{ minRows: 25, maxRows: 25 }" class="input-area" />
+        <!-- <el-input id="code" ref="inputRef" type='textarea' v-model="printContent" placeholder="请输入打印内容"
+          :autosize="{ minRows: 25, maxRows: 25 }" class="input-area" /> -->
+        <Codemirror 
+        v-model:value="printContent" 
+        border
+        ref="inputRef"
+        height="500px"
+        width="100%"
+        @ready="onReady"
+        :options="cmOptions" 
+        />
 
         <div class="btn-shell">
           <el-button @click="submitPrint" large round type="primary">打印</el-button>

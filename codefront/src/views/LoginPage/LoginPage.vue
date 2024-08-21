@@ -69,18 +69,20 @@ const submitLogin = (formEl: FormInstance | undefined) => {
           });
         });
 
-      // // 测试
-      // // 存token
-      // const token = 'testtoken';
-      // useTeamInfoStore().setTeamInfo(form.value.teamname, form.value.location, token)
-      // // 跳转
-      // router.push({ path: '/print' });
+      // 测试
+      // 存token
+        // const token = 'testtoken';
+        // useTeamInfoStore().setTeamInfo(form.value.teamname, form.value.location, token)
+        // // 跳转
+        // router.push({ path: '/print' });
+      
     } else {
       console.log('error submit!!', fields)
       ElMessage({
         type: 'error',
         message: '请检查输入'
       });
+
     }
   });
 };
